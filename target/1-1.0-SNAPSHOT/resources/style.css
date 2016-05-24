@@ -1,0 +1,81 @@
+body{
+    background-color: #ffed75;
+}
+
+div.logo{
+
+    background-image: url("images/logo.png");
+    /*background-size: 100%;*/
+    background-size: cover;
+    width: 400px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 153px;
+}
+
+div.play_logo{
+    background-image: url("images/play2.png");
+    margin-top: 15%;
+    margin-left: 7%;
+    background-size: cover;
+    width: 260px;
+    height: 120px;
+    /*display: table-cell;*/
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+
+div.col-md-3.menu{
+    height: 8%;
+    border-radius: 5px;
+    background-color: floralwhite;
+    border: 1px solid coral;
+}
+
+
+
+div.col-md-3.remove{
+    background-image: url("images/remove1.png");
+    margin-left: 2%;
+    height:50px;
+    width: 50px;
+    background-size: cover;
+}
+
+div.col-md-3.plus{
+    background-image: url("images/plus.png");
+    margin-left: 2%;
+    height:50px;
+    width: 50px;
+    background-size: cover;
+}
+
+
+input.team{
+    border: none;
+    background-color: floralwhite;
+    width:80%;
+    height: 100%;
+    font-size: 17px;
+}
+
+div.buttons{
+    margin-right: -5%;
+    float: right;
+    height:50px;
+    width: 50px;
+    /*background-color: red;*/
+    background-image: url("images/refresh.png");
+    background-size: cover;
+}
+
+
+div.play{
+
+    display: table;
+    width: 300px;height: 300px;margin: auto;
+    background-image: url("images/play1.png");
+}
