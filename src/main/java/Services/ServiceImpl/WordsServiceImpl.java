@@ -1,8 +1,11 @@
 package Services.ServiceImpl;
 
 import Model.EasyEntity;
+import Model.HardEntity;
 import Model.MiddleEntity;
 import Repositories.EasyRepository;
+import Repositories.HardRepository;
+import Repositories.MiddleRepository;
 import Services.WordsService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,20 +21,30 @@ import java.util.List;
 @Service
 public class WordsServiceImpl implements WordsService {
 
-   @Inject
-   EasyRepository repository;
+    @Inject
+    EasyRepository easyRepository;
+
+    @Inject
+    MiddleRepository middleRepository;
+
+    @Inject
+    HardRepository hardRepository;
 
     public List<EasyEntity> getWordsForEasyGame() {
-        return repository.findAll();
+        return easyRepository.findAll();
     }
 
     public List<MiddleEntity> getWordsForMediumGame() {
-        return null;
+        return middleRepository.findAll();
+    }
+
+    public List<HardEntity> getWordsForHardGame() {
+        return hardRepository.findAll();
     }
 
     public void addWord(String word) {
         EasyEntity easyEntity = new EasyEntity();
         easyEntity.setWord(word);
-        repository.save(easyEntity);
+        easyRepository.save(easyEntity);
     }
 }

@@ -24,6 +24,7 @@ div.play_logo{
     /*display: table-cell;*/
     text-align: center;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 
@@ -43,6 +44,7 @@ div.col-md-3.remove{
     height:50px;
     width: 50px;
     background-size: cover;
+    cursor: pointer;
 }
 
 div.col-md-3.plus{
@@ -51,6 +53,7 @@ div.col-md-3.plus{
     height:50px;
     width: 50px;
     background-size: cover;
+    cursor: pointer;
 }
 
 
@@ -70,6 +73,7 @@ div.buttons{
     /*background-color: red;*/
     background-image: url("images/refresh.png");
     background-size: cover;
+    cursor: pointer;
 }
 
 
