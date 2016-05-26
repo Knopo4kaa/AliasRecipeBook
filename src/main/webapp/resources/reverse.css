@@ -1,0 +1,54 @@
+/* весь контейнер поддерживает перспективу */
+.flip-container {
+    perspective: 1000;
+}
+/* переверните сторону при проведении мышью */
+.flip-container.flip .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+    width: 300px;
+    height: 350px;
+}
+
+
+.front{
+    cursor: pointer;
+    background-image: url("images/card1.png");
+    border-radius: 10px;
+}
+
+.back{
+    border-radius: 10px;
+    /*border: 1px solid chocolate;*/
+    background-image: url("images/card4.png");
+}
+
+
+/* здесь находится скорость перевертывания */
+.flipper {
+    transition: 1.0s;
+    transform-style: preserve-3d;
+
+    position: relative;
+}
+
+/* скройте обратную сторону во время переворота */
+.front, .back {
+    backface-visibility: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* лицевая сторона размещена над обратной */
+.front {
+    z-index: 2;
+}
+
+/* обратная, изначально скрытая сторона */
+.back {
+    transform: rotateY(180deg);
+}

@@ -83,3 +83,67 @@ div.play{
     width: 300px;height: 300px;margin: auto;
     background-image: url("images/play1.png");
 }
+
+
+div.central{
+    display: table;
+    margin: auto;
+}
+
+div.timer{
+    margin-left: 17%;
+}
+
+div.card{
+    margin-left: 3%;
+    width: 250px;
+    height: 300px;
+    border: 2px solid black;
+}
+
+h3.word{
+    /*height: 350px;  !* не в % *!*/
+    text-align: center;
+    line-height: 280px;
+}
+
+h3.title{
+    /*height: 350px;  !* не в % *!*/
+    text-align: center;
+    line-height: 280px;
+}
+
+div.yes{
+    cursor: pointer;
+    margin-top: 35%;
+    background-image: url("images/yes.png");
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+}
+
+#window{
+    display: none;
+    width: 400px;
+    height: 400px;
+    margin: 50px auto;
+    background: #fff;
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+}
+
+
+div.no{
+    cursor: pointer;
+    margin-top: 39%;
+    margin-left: 55%;
+    background-image: url("images/no.png");
+    background-size: cover;
+    width: 70px;
+    height: 70px;
+}

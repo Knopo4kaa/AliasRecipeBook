@@ -27,7 +27,7 @@
         <form action="/game" method="post">
             <div class="col-md-4">
                 <div class="range range-danger"  style="width: 350px; margin-top: 8%">
-                    <input type="range" name="time" min="10" max="120" value="50" onchange="rangeDanger.value=value">
+                    <input type="range" name="time" min="2" max="120" value="50" onchange="rangeDanger.value=value">
                     <output id="rangeDanger">50</output>
 
                 </div>

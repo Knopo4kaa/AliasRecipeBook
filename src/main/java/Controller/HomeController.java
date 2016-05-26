@@ -59,20 +59,22 @@ public class HomeController {
     public String game(@RequestParam("time")Integer _time,
                        @RequestParam("level")Integer level,
                        ModelMap mav){
-
         time = _time;
         if (level == 1){
             List<EasyEntity> list = wordsService.getWordsForEasyGame();
             mav.put("words", list);
+            System.out.println(list);
         } else if (level == 2){
             List<MiddleEntity> list = wordsService.getWordsForMediumGame();
             mav.put("words", list);
+            System.out.println(list);
         } else if (level == 3){
             List<HardEntity> list = wordsService.getWordsForHardGame();
             mav.put("words", list);
+            System.out.println(list);
         }
-
-        return "game";
+        mav.put("time", time);
+        return "gamepage";
     }
 
 
