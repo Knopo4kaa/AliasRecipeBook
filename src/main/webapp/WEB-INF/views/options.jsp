@@ -34,7 +34,7 @@
                 <div class="col-md-12">
                     <div class="col-md-2">
                         <div style=" margin-top: 20px">
-                            <input type="radio" name="level" value="1" style="width: 30px; height: 30px">
+                            <input type="radio" name="level" value="1" style="width: 30px; height: 30px" checked>
                         </div>
                         <br>
                         <div>

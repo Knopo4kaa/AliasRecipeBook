@@ -12,11 +12,37 @@
     <title>Title</title>
 </head>
 <body>
+<script>
+    function show(state){
 
+        document.getElementById('window').style.display = state;
+        document.getElementById('wrap').style.display = state;
+    }
+</script>
 <div class="container">
+
+
     <div class="col-md-12">
         <div class="col-md-4">
-            <h2>Score: <span class="score">0</span></h2>
+            <div class="col-md-12">
+                <div class="col-md-4" style="height: 85px">
+                    <div class="score" style="margin-top: 15%"></div>
+                </div>
+                <div class="col-md-8">
+                    <h3 class="team"  >${team.title}</h3>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4" style="height: 85px">
+                    <div class="score"  style="margin-top: 15%"></div>
+                </div>
+                <div class="col-md-8">
+                    <h3 class="score">0</h3>
+                </div>
+            </div>
+
+
+
         </div>
         <div class="col-md-4">
             <div class="timer" id="CountDownTimer" data-timer="${time}" style="width: 300px; height: 170px;"></div>
@@ -36,15 +62,25 @@
                         <h3 class="title" style="color: whitesmoke">Click to start!</h3>
                     </div>
                     <div class="back">
-                        <c:forEach items="${words}" var="word">
-                            <h3 class="word" style="color: whitesmoke" hidden>${word.word}</h3>
-                        </c:forEach>
+                    <c:forEach items="${words}" var="word">
+                        <h3 class="word" style="color: whitesmoke" hidden>${word.word}</h3>
+                    </c:forEach>
                     </div>
+
                 </div>
             </div>
         </div>
+        <div id="wrap"></div>
         <div class="col-md-4" id="window">
-            <h1>asdasdasdasd</h1>
+            <h1 style="text-align: center">Time is over!</h1>
+            <h1 style="text-align: center">Team:</h1>
+            <h1 class="team" style="text-align: center">${team.title}</h1>
+            <h1 style="text-align: center">Score:</h1>
+            <h1 class="score" style="text-align: center"></h1>
+            <form action="/game" method="post">
+                <input type="text" name="score" class="input_score" hidden>
+                <center><button type="submit" class="btn btn-default"  name="id" value="${team.id}">Next turn!</button></center>
+            </form>
         </div>
         <div class="col-md-4">
             <div class="yes">
@@ -64,25 +100,36 @@
     $(document).ready(function () {
         $( ".word" ).first().show();
         var words = document.getElementsByClassName(".word");
-
+        var check;
         var score = 0;
         var gameStarted = 0;
 
         $(".flip-container").click(function () {
             $(".flip-container").addClass('flip');
             gameStarted = 1;
-            setInterval(checkFunction, 1);
+            check = setInterval(checkFunction, 1);
         });
 
         function checkFunction() {
             var currentTime =  $('#timer').text();
             if (currentTime == '0'){
                 $("#CountDownTimer").TimeCircles().stop();
+                $("h1.score").html(score);
+                $(".input_score").val(score);
                 show('block');
             }
         }
 
+        function show(state){
 
+            document.getElementById('window').style.display = state;
+            document.getElementById('wrap').style.display = state;
+        }
+
+//        $('#wrap').click(function () {
+////            show('none');
+//            clearInterval(check);
+//        });
 
         $(".yes").click(function () {
             if (gameStarted){
@@ -96,11 +143,7 @@
 
         });
 
-        function show(state){
 
-            document.getElementById('window').style.display = state;
-            document.getElementById('wrap').style.display = state;
-        }
 
 
         $(".no").click(function () {
@@ -112,6 +155,9 @@
             }
 
         });
+
+
+
 
 
     });

@@ -22,8 +22,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-
+    private Integer gameLevel = null;
     private List<Team> teams;
+    private List<Team> playedTeams = new ArrayList<Team>();
     private int time;
 
     @Inject
@@ -48,7 +49,7 @@ public class HomeController {
 
         teams = new ArrayList<Team>();
         for (String title : titles) {
-            teams.add(new Team(title));
+            teams.add(new Team(title,teams.size()));
         }
 //        mav.put("name", wordsService.getWordsForEasyGame().size());
         return "options";
@@ -56,25 +57,69 @@ public class HomeController {
 
 
     @RequestMapping(value = "game", method = RequestMethod.POST)
-    public String game(@RequestParam("time")Integer _time,
-                       @RequestParam("level")Integer level,
+    public String game(@RequestParam(value = "time" , required = false)Integer _time,
+                       @RequestParam(value = "level" , required = false)Integer level,
+                       @RequestParam(value = "score" , required = false)Integer score,
+                       @RequestParam(value = "id" , required = false)Integer id,
                        ModelMap mav){
-        time = _time;
-        if (level == 1){
+
+        int random;
+        if (level != null){
+            gameLevel = level;
+            time = _time;
+//            System.out.println(teams.size());
+            random = (int )(Math. random() * teams.size());
+//            System.out.println(random);
+
+            mav.put("team", teams.get(random));
+
+        }else{
+            Team team = new Team();
+            for (Team t: teams) {
+                if (t.getId() == id){
+                    team = t;
+                    break;
+                }
+            }
+            team.setScore(score);
+            playedTeams.add(team);
+            teams.remove(team);
+            if (teams.size() == 0){
+                return "redirect:/results";
+            }
+            System.out.println(teams.size());
+            random = (int )(Math. random() * teams.size());
+            System.out.println(random);
+            mav.put("team", teams.get(random));
+        }
+
+        if (gameLevel == 1){
             List<EasyEntity> list = wordsService.getWordsForEasyGame();
             mav.put("words", list);
-            System.out.println(list);
-        } else if (level == 2){
+        } else if (gameLevel == 2){
             List<MiddleEntity> list = wordsService.getWordsForMediumGame();
             mav.put("words", list);
-            System.out.println(list);
-        } else if (level == 3){
+        } else if (gameLevel == 3){
             List<HardEntity> list = wordsService.getWordsForHardGame();
             mav.put("words", list);
-            System.out.println(list);
         }
+
+
         mav.put("time", time);
+
+
+
+
         return "gamepage";
+    }
+
+
+
+    @RequestMapping(value = "results", method = RequestMethod.GET)
+    public String results(ModelMap mav){
+
+        mav.put("team", playedTeams);
+        return "results";
     }
 
 
