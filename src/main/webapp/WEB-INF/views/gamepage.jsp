@@ -24,22 +24,6 @@
 
     <div class="col-md-12">
         <div class="col-md-4">
-            <div class="col-md-12">
-                <div class="col-md-4" style="height: 85px">
-                    <div class="score" style="margin-top: 15%"></div>
-                </div>
-                <div class="col-md-8">
-                    <h3 class="team"  >${team.title}</h3>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-4" style="height: 85px">
-                    <div class="score"  style="margin-top: 15%"></div>
-                </div>
-                <div class="col-md-8">
-                    <h3 class="score">0</h3>
-                </div>
-            </div>
 
 
 
@@ -47,7 +31,36 @@
         <div class="col-md-4">
             <div class="timer" id="CountDownTimer" data-timer="${time}" style="width: 300px; height: 170px;"></div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="col-md-5" style="height: 85px">
+                            <div class="team" style="margin-top: 15%"></div>
+                        </div>
+                        <div class="col-md-7">
+                            <h3 class="team">${team.title}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="col-md-5" style="height: 85px">
+                            <div class="_score"  style="margin-top: 15%"></div>
+                        </div>
+                        <div class="col-md-7">
+                            <h3 class="score">0</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
 
     </div>
     <div class="col-md-12">
@@ -73,11 +86,25 @@
         <div id="wrap"></div>
         <div class="col-md-4" id="window">
             <h1 style="text-align: center">Time is over!</h1>
-            <h1 style="text-align: center">Team:</h1>
-            <h1 class="team" style="text-align: center">${team.title}</h1>
-            <h1 style="text-align: center">Score:</h1>
-            <h1 class="score" style="text-align: center"></h1>
+            <%--<h1 style="text-align: center">Team:</h1>--%>
+            <%--<h1 class="team" style="text-align: center">${team.title}</h1>--%>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h1 style="text-align: center">Score:</h1>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="score" style="text-align: center"></h1>
+                </div>
+            </div>
+
+            <div class="col-md-12 answer" style="height: 180px;overflow-y: scroll;overflow-x: hidden;">
+
+            </div>
+
+
             <form action="/game" method="post">
+                <input type="text" name="guessed" class="g" hidden>
+                <input type="text" name="notguessed" class="ng" hidden>
                 <input type="text" name="score" class="input_score" hidden>
                 <center><button type="submit" class="btn btn-default"  name="id" value="${team.id}">Next turn!</button></center>
             </form>
@@ -100,6 +127,8 @@
     $(document).ready(function () {
         $( ".word" ).first().show();
         var words = document.getElementsByClassName(".word");
+        var guessed = [];
+        var notGuessed = [];
         var check;
         var score = 0;
         var gameStarted = 0;
@@ -115,8 +144,13 @@
             if (currentTime == '0'){
                 $("#CountDownTimer").TimeCircles().stop();
                 $("h1.score").html(score);
+                guessedWords();
+                notGuessedWords();
                 $(".input_score").val(score);
                 show('block');
+                $(".g").val(guessed.length);
+                $(".ng").val(notGuessed.length);
+                clearInterval(check);
             }
         }
 
@@ -125,29 +159,55 @@
             document.getElementById('window').style.display = state;
             document.getElementById('wrap').style.display = state;
         }
+        
+        
+        function guessedWords() {
+            for (word in guessed){
+            $('.answer').append('<div class="col-md-12"> \
+                    <div class="col-md-9"> \
+                    <h3 class="_word"></h3> \
+                    </div> \
+                    <div class="col-md-3" style="margin-top: 15px"> \
+                    <div class="true"></div> \
+                    </div> \
+                    </div>');
 
-//        $('#wrap').click(function () {
-////            show('none');
-//            clearInterval(check);
-//        });
+            $( "._word" ).last().text(guessed[word]);
+            }
+
+        }
+
+        function notGuessedWords() {
+            for (word in notGuessed){
+                $('.answer').append('<div class="col-md-12"> \
+                    <div class="col-md-9"> \
+                    <h3 class="_word"></h3> \
+                    </div> \
+                    <div class="col-md-3" style="margin-top: 15px"> \
+                    <div class="false"></div> \
+                    </div> \
+                    </div>');
+
+                $( "._word" ).last().text(notGuessed[word]);
+            }
+
+        }
+
 
         $(".yes").click(function () {
             if (gameStarted){
+                guessed.push($( ".word" ).first().html());
                 $( ".word" ).first().remove();
                 $( ".word" ).first().show();
                 score++;
                 $(".score").html(score);
-
-
             }
 
         });
 
-
-
-
         $(".no").click(function () {
             if (gameStarted){
+                notGuessed.push($( ".word" ).first().html());
                 $( ".word" ).first().remove();
                 $( ".word" ).first().show();
                 score--;

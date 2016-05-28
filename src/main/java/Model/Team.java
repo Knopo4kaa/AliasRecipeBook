@@ -6,6 +6,8 @@ package Model;
 public class Team {
     private int id;
     private int score;
+    private int guessed;
+    private int notGuessed;
     private String title;
 
     public Team(){}
@@ -15,6 +17,23 @@ public class Team {
         this.title = title;
         this.score = 0;
     }
+
+    public int getGuessed() {
+        return guessed;
+    }
+
+    public void setGuessed(int guessed) {
+        this.guessed = guessed;
+    }
+
+    public int getNotGuessed() {
+        return notGuessed;
+    }
+
+    public void setNotGuessed(int notGuessed) {
+        this.notGuessed = notGuessed;
+    }
+
 
     public int getId() {
         return id;

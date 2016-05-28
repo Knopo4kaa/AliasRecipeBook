@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: drowerik
@@ -18,26 +19,44 @@
 <div class="container">
 
     <div class="col-md-12" style="margin-top: 15%">
-        <div id="results">
-            <c:forEach items="${t}" var="team">
+        <div id="results"  style="overflow: scroll;overflow-x: hidden;">
+            <div class="col-md-12">
+                <hr class="style-eight" style="z-index: 200;">
+            </div>
+            <c:forEach items="${team}" var="t">
                 <div class="col-md-12">
-                    <div class="col-md-4" style="height: 85px">
-                        <div class="score" style="margin-top: 15%"></div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-4" style="height: 55px">
+                            <div class="_score" style="margin-top: 15%"></div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="team"  >${t.title}</h3>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <h3 class="team"  >${t.title}</h3>
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-4" style="height: 55px">
+                            <div class="_score"  style="margin-top: 15%"></div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="score">${t.score}</h3>
+                        </div>
+
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-4" style="height: 85px">
-                        <div class="score"  style="margin-top: 15%"></div>
-                    </div>
-                    <div class="col-md-8">
-                        <h3 class="score">${t.score}</h3>
+
+                    <div class="col-md-12">
+                        <hr class="style-eight" style="z-index: 200;">
                     </div>
                 </div>
             </c:forEach>
+            <center><a href="/winner"><button type="submit"  class="btn btn-default">Next</button></a></center>
         </div>
+
+
+
+
     </div>
 
     <%@include file="footer.jsp"%>

@@ -14,6 +14,60 @@ div.logo{
     height: 153px;
 }
 
+button.next{
+    background-color: transparent;
+    border: none;
+    background-image: url("images/next.png");
+    /*background-size: 100%;*/
+    background-size: cover;
+    width: 480px;
+    position: absolute;
+    bottom: 0;
+    right: 3%;
+    outline: none;
+    height: 153px;
+}
+
+
+div.rules{
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    background-image: url("images/rules.png");
+    /*background-size: 100%;*/
+    background-size: cover;
+    width: 480px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 153px;
+}
+
+
+div.teamLogo{
+
+    background-image: url("images/teams.png");
+    /*background-size: 100%;*/
+    background-size: cover;
+    width: 480px;
+    position: absolute;
+    top:0;
+    left: 5%;
+    height: 153px;
+}
+
+div.options{
+
+    background-image: url("images/options.png");
+    /*background-size: 100%;*/
+    background-size: cover;
+    width: 480px;
+    position: absolute;
+    top:0;
+    left: 5%;
+    height: 153px;
+}
+
 div.play_logo{
     background-image: url("images/play2.png");
     margin-top: 15%;
@@ -173,12 +227,19 @@ div.no{
 }
 
 
-div.score{
-    background-image: url("images/score21.png");
+div._score{
+    background-image: url("images/score_.png");
     background-size: cover;
-    width: 105px;
-    height: 43px;
+    width: 120px;
+    height: 45px;
 }
+div.team{
+    background-image: url("images/team.png");
+    background-size: cover;
+    width: 120px;
+    height: 45px;
+}
+
 
 h3.team, h3.score{
     font-family: Comic Sans, Comic Sans MS, cursive;
@@ -199,4 +260,54 @@ h3.team, h3.score{
     top: 0;
     bottom: 0;
     padding: 16px;
+}
+
+#winners{
+    border-radius: 7px;
+    border: 1px coral solid;
+    width: 450px;
+    height: 380px;
+    margin: 50px auto;
+    margin-top: 5%;
+    background: #fff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+}
+
+
+hr.style-eight {
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+hr.style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
+
+
+.true{
+    background-image: url("images/gal.png");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
+
+.false{
+    background-image: url("images/kres.png");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
 }

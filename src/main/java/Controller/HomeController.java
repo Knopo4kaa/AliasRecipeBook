@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
     private Integer gameLevel = null;
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<Team>();
     private List<Team> playedTeams = new ArrayList<Team>();
     private int time;
 
@@ -33,21 +33,23 @@ public class HomeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String homepage(ModelMap mav){
+
         mav.put("name", wordsService.getWordsForEasyGame().size());
         return "homepage";
     }
 
     @RequestMapping(value = "teampage", method = RequestMethod.GET)
     public String teampage(ModelMap mav){
-        List<TeamEntity> list;
-//        mav.put("name", wordsService.getWordsForEasyGame().size());
+        playedTeams.clear();
+        teams.clear();
+        gameLevel = null;
+        time = 0;
         return "teampage";
     }
 
     @RequestMapping(value = "options", method = RequestMethod.POST)
     public String options(@RequestParam(value = "title[]", required = false)String [] titles){
 
-        teams = new ArrayList<Team>();
         for (String title : titles) {
             teams.add(new Team(title,teams.size()));
         }
@@ -61,15 +63,15 @@ public class HomeController {
                        @RequestParam(value = "level" , required = false)Integer level,
                        @RequestParam(value = "score" , required = false)Integer score,
                        @RequestParam(value = "id" , required = false)Integer id,
+                       @RequestParam(value = "guessed" , required = false)Integer guessed,
+                       @RequestParam(value = "notguessed" , required = false)Integer notGuessed,
                        ModelMap mav){
 
         int random;
         if (level != null){
             gameLevel = level;
             time = _time;
-//            System.out.println(teams.size());
             random = (int )(Math. random() * teams.size());
-//            System.out.println(random);
 
             mav.put("team", teams.get(random));
 
@@ -81,15 +83,15 @@ public class HomeController {
                     break;
                 }
             }
+            team.setGuessed(guessed);
+            team.setNotGuessed(notGuessed);
             team.setScore(score);
             playedTeams.add(team);
             teams.remove(team);
             if (teams.size() == 0){
                 return "redirect:/results";
             }
-            System.out.println(teams.size());
             random = (int )(Math. random() * teams.size());
-            System.out.println(random);
             mav.put("team", teams.get(random));
         }
 
@@ -113,15 +115,36 @@ public class HomeController {
         return "gamepage";
     }
 
+    @RequestMapping(value = "rools", method = RequestMethod.GET)
+    public String rools(ModelMap mav){
+        return "rools";
+    }
 
 
     @RequestMapping(value = "results", method = RequestMethod.GET)
     public String results(ModelMap mav){
-
         mav.put("team", playedTeams);
         return "results";
     }
 
+    public Team chooseWinner(){
+        int max = 0;
+        Team buff = new Team();
+        for (Team team: playedTeams) {
+            if (team.getScore() > max){
+                max = team.getScore();
+                buff = team;
+            }
+        }
+        return buff;
+    }
+
+
+    @RequestMapping(value = "winner", method = RequestMethod.GET)
+    public String winner(ModelMap mav){
+        mav.put("winner", chooseWinner());
+        return "winnerpage";
+    }
 
 
     @RequestMapping(value = "create", method = RequestMethod.POST)

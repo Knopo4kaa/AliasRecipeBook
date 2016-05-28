@@ -3,15 +3,25 @@
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script src="/resources/jquery-1.11.3.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/resources/style.css" >
     <title>Title</title>
 </head>
 <body>
 
+<script>
+    $(document).ready(function () {
+        $(".rules").click(function () {
+            window.location="/rools";
+        });
+    });
+</script>
 
 
 <div class="container">
+    <div class="rules"></div>
+
     <div class="col-md-12" style="margin-top: 10%">
             <div class="play">
                 <a href="/teampage">
@@ -23,4 +33,6 @@
 </div>
 
 </body>
+
+
 </html>

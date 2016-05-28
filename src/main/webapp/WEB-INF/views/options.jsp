@@ -15,20 +15,22 @@
     <link rel="stylesheet" href="/resources/range.css" >
     <title>Title</title>
 </head>
+
 <body>
 <div class="container">
-
+    <form action="/game" method="post">
+    <div class="options"></div>
     <div class="col-md-12" style="margin-top: 15%">
         <div class="col-md-3"></div>
         <div class="col-md-1">
             <h2>Time:</h2>
             <h2>Level:</h2>
         </div>
-        <form action="/game" method="post">
+
             <div class="col-md-4">
                 <div class="range range-danger"  style="width: 350px; margin-top: 8%">
-                    <input type="range" name="time" min="2" max="120" value="50" onchange="rangeDanger.value=value">
-                    <output id="rangeDanger">50</output>
+                    <input type="range" name="time" min="2" max="60" value="30" onchange="rangeDanger.value=value">
+                    <output id="rangeDanger">30</output>
 
                 </div>
                 <div class="col-md-12">
@@ -52,14 +54,21 @@
                     </div>
                 </div>
             </div>
-            <button type="submit">Next step</button>
-        </form>
+
+
         <div class="col-md-4">
 
         </div>
     </div>
+        <button type="submit" class="next"></button>
+    </form>
 
     <%@include file="footer.jsp"%>
 </div>
 </body>
+<style>
+    h2,h3{
+        font-family: Comic Sans, Comic Sans MS, cursive;
+    }
+</style>
 </html>

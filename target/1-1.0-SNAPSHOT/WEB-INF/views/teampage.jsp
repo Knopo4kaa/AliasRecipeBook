@@ -16,7 +16,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="col-md-12" style="margin-top: 4%">
+    <div class="teamLogo"></div>
+    <div class="col-md-12" style="margin-top: 10%">
         <div class="col-md-5"></div>
         <div class="col-md-3 remove">
         </div>
@@ -33,9 +34,9 @@
         <div class="col-md-4"></div>
     </div>
 
-        <button type="submit">Next step</button>
-    </form>
     <%@include file="footer.jsp"%>
+    <button class="next" type="submit"></button>
+    </form>
 </div>
 </body>
 <script>
