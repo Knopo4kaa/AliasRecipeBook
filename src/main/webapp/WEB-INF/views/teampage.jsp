@@ -16,6 +16,7 @@
 </head>
 <body>
 <div class="container">
+    <div class="rules"></div>
     <div class="teamLogo"></div>
     <div class="col-md-12" style="margin-top: 10%">
         <div class="col-md-5"></div>
@@ -53,10 +54,16 @@
         usedNames.push(_name);
         names.splice(randomNumber,1);
         return _name;
+
+
     }
     
     
     $(document).ready(function () {
+
+        $(".rules").click(function () {
+            window.location="/rools";
+        });
         var count = 0;
         var _name;
         for (var i = 0; i < 2; i++){

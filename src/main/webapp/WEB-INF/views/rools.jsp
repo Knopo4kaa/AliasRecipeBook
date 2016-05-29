@@ -20,7 +20,7 @@
 </head>
 <body style="background-color: transparent">
 
-<a href="/" style="font-size: 20px; text-decoration: none">< Back</a>
+<a href="/" style="font-size: 20px; text-decoration: none">< Home</a>
 
 <div id="jssor_1" style="position: relative; margin: 0 auto; top: 10%; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
     <!-- Loading Screen -->

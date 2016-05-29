@@ -24,42 +24,27 @@
 
     <div class="col-md-12">
         <div class="col-md-4">
-
-
-
+            <div class="col-md-12">
+                <div class="col-md-5" style="height: 85px">
+                    <div class="team" style="margin-top: 15%"></div>
+                </div>
+                <div class="col-md-7">
+                    <h3 class="team">${team.title}</h3>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
             <div class="timer" id="CountDownTimer" data-timer="${time}" style="width: 300px; height: 170px;"></div>
         </div>
         <div class="col-md-4">
-
             <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="col-md-12">
-                        <div class="col-md-5" style="height: 85px">
-                            <div class="team" style="margin-top: 15%"></div>
-                        </div>
-                        <div class="col-md-7">
-                            <h3 class="team">${team.title}</h3>
-                        </div>
-                    </div>
+                <div class="col-md-5" style="height: 85px">
+                    <div class="_score"  style="margin-top: 15%"></div>
                 </div>
-
-                <div class="col-md-6">
-                    <div class="col-md-12">
-                        <div class="col-md-5" style="height: 85px">
-                            <div class="_score"  style="margin-top: 15%"></div>
-                        </div>
-                        <div class="col-md-7">
-                            <h3 class="score">0</h3>
-                        </div>
-                    </div>
+                <div class="col-md-7">
+                    <h3 class="score">0</h3>
                 </div>
-
             </div>
-
-
-
         </div>
 
     </div>
@@ -136,6 +121,7 @@
         $(".flip-container").click(function () {
             $(".flip-container").addClass('flip');
             gameStarted = 1;
+            $(".title").remove();
             check = setInterval(checkFunction, 1);
         });
 
@@ -150,6 +136,7 @@
                 show('block');
                 $(".g").val(guessed.length);
                 $(".ng").val(notGuessed.length);
+
                 clearInterval(check);
             }
         }

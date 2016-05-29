@@ -122,8 +122,8 @@ input.team{
 div.buttons{
     margin-right: -5%;
     float: right;
-    height:50px;
-    width: 50px;
+    height:40px;
+    width: 40px;
     /*background-color: red;*/
     background-image: url("images/refresh.png");
     background-size: cover;
@@ -170,7 +170,7 @@ h3.title{
 div.yes{
     cursor: pointer;
     margin-top: 35%;
-    background-image: url("images/yes.png");
+    background-image: url("images/gal.png");
     background-size: cover;
     width: 100px;
     height: 100px;
@@ -213,7 +213,7 @@ div.no{
     cursor: pointer;
     margin-top: 39%;
     margin-left: 55%;
-    background-image: url("images/no.png");
+    background-image: url("images/kres.png");
     background-size: cover;
     width: 70px;
     height: 70px;

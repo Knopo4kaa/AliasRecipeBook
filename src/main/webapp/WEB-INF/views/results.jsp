@@ -28,7 +28,7 @@
 
                     <div class="col-md-12">
                         <div class="col-md-4" style="height: 55px">
-                            <div class="_score" style="margin-top: 15%"></div>
+                            <div class="team" style="margin-top: 15%"></div>
                         </div>
                         <div class="col-md-8">
                             <h3 class="team"  >${t.title}</h3>
@@ -37,10 +37,10 @@
 
                     <div class="col-md-12">
 
-                        <div class="col-md-4" style="height: 55px">
+                        <div class="col-md-5" style="height: 55px">
                             <div class="_score"  style="margin-top: 15%"></div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <h3 class="score">${t.score}</h3>
                         </div>
 
