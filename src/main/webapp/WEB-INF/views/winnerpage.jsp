@@ -13,7 +13,7 @@
     <script src="/resources/jquery-1.11.3.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/resources/style.css" >
-    <title>Title</title>
+    <title>Alias</title>
 </head>
 <body>
 <div class="container">
@@ -63,7 +63,10 @@
                     </div>
 
                 </div>
-                <center><button type="submit" id="id" class="btn btn-default" style="margin-top: 10px" name="id" value="${winner.id}">Play again!</button></center>
+                <center>
+                    <button type="submit" id="id" class="btn btn-default" style="margin-top: 10px" name="id" value="${winner.id}">New game!</button>
+
+                </center>
             </div>
         </div>
 

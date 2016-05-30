@@ -52,6 +52,9 @@
                 </div>
             </c:forEach>
             <center><a href="/winner"><button type="submit"  class="btn btn-default">Next</button></a></center>
+            <form action="/options" method="post">
+                <center><button type="submit" id="next" class="btn btn-default" style="margin-top: 10px" name="id" >Next loop!</button></center>
+            </form>
         </div>
 
 

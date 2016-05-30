@@ -15,8 +15,8 @@ jQuery(document).ready(function ($) {
     ];
 
     var jssor_1_options = {
-        $AutoPlay: true,
-        $Idle: 2000,
+        $AutoPlay: false,
+        $Idle: 15000,
         $CaptionSliderOptions: {
             $Class: $JssorCaptionSlideo$,
             $Transitions: jssor_1_SlideoTransitions,

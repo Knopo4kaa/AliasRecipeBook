@@ -16,17 +16,19 @@
     <link rel="stylesheet" href="/resources/style.css" >
     <link rel="stylesheet" href="/resources/slider.css" >
     <script type="text/javascript" src="/resources/slider/js/jssor.slider.mini.js"></script>
-    <title>Title</title>
+    <title>Alias</title>
 </head>
 <body style="background-color: transparent">
 
-<a href="/" style="font-size: 20px; text-decoration: none">< Home</a>
+<%--<a href="/" style="font-size: 20px; text-decoration: none">< Home</a>--%>
+
+<div class="home"></div>
 
 <div id="jssor_1" style="position: relative; margin: 0 auto; top: 10%; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
     <!-- Loading Screen -->
     <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
         <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-        <div style="position:absolute;display:block;background:url('{% static 'shop/img/loading.gif' %}') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+        <div style="position:absolute;display:block;top:0px;left:0px;width:100%;height:100%;"></div>
     </div>
     <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
         <div data-p="112.50" style="display: none;">
@@ -53,7 +55,13 @@
     <span data-u="arrowright" class="jssora02r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
 </div>
 
-
+<script>
+    $(document).ready(function () {
+        $(".home").click(function () {
+            window.location="/";
+        });
+    });
+</script>
 
 </body>
 </html>

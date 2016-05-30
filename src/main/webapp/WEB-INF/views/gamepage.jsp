@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/resources/timer/inc/TimeCircles.js"></script>
     <link rel="stylesheet" href="/resources/timer/inc/TimeCircles.css" />
     <link rel="stylesheet" href="/resources/reverse.css" />
-    <title>Title</title>
+    <title>Alias</title>
 </head>
 <body>
 <script>
@@ -42,7 +42,7 @@
                     <div class="_score"  style="margin-top: 15%"></div>
                 </div>
                 <div class="col-md-7">
-                    <h3 class="score">0</h3>
+                    <h3 class="score">${team.score}</h3>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
         var guessed = [];
         var notGuessed = [];
         var check;
-        var score = 0;
+        var score = $('.score').html();
         var gameStarted = 0;
 
         $(".flip-container").click(function () {

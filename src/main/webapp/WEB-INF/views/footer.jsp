@@ -12,7 +12,7 @@
     <%--<link rel="stylesheet" href="/resources/css/navbar.css">--%>
     <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/resources/style.css" >
-    <title>Title</title>
+    <title>Alias</title>
 
 </head>
 <body>

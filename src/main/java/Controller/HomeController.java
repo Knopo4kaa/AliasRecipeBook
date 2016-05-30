@@ -50,13 +50,38 @@ public class HomeController {
     @RequestMapping(value = "options", method = RequestMethod.POST)
     public String options(@RequestParam(value = "title[]", required = false)String [] titles){
 
-        for (String title : titles) {
+        if (playedTeams.size() != 0){
+            for (Team t: playedTeams) {
+                t.setGuessed(0);
+                t.setNotGuessed(0);
+                teams.add(t);
+            }
+            playedTeams.clear();
+        }else {
+            for (String title : titles) {
             teams.add(new Team(title,teams.size()));
+            }
         }
+
+
 //        mav.put("name", wordsService.getWordsForEasyGame().size());
         return "options";
     }
 
+
+    private  <E> List<E> permutation(List<E> list){
+        List<E> output = new ArrayList<E>();
+
+
+        while(output.size() != list.size())
+        {
+            int r = (int)(Math.random()*(list.size()));
+            if(!output.contains( list.get( r   )))
+                output.add( list.get( r   ));
+
+        }
+        return output;
+    }
 
     @RequestMapping(value = "game", method = RequestMethod.POST)
     public String game(@RequestParam(value = "time" , required = false)Integer _time,
@@ -97,13 +122,13 @@ public class HomeController {
 
         if (gameLevel == 1){
             List<EasyEntity> list = wordsService.getWordsForEasyGame();
-            mav.put("words", list);
+            mav.put("words", permutation(list));
         } else if (gameLevel == 2){
             List<MiddleEntity> list = wordsService.getWordsForMediumGame();
-            mav.put("words", list);
+            mav.put("words", permutation(list));
         } else if (gameLevel == 3){
             List<HardEntity> list = wordsService.getWordsForHardGame();
-            mav.put("words", list);
+            mav.put("words", permutation(list));
         }
 
 

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/resources/style.css" >
     <link rel="stylesheet" href="/resources/range.css" >
-    <title>Title</title>
+    <title>Alias</title>
 </head>
 
 <body>
