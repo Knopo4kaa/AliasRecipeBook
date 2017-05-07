@@ -12,7 +12,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernateSession" value="91050db8-18cd-41c6-988f-860d650c728d" />
+          <unit-entry name="hibernateSession" value="dataSource" />
         </datasource-map>
         <naming-strategy-map />
       </configuration>
@@ -32,7 +32,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -102,5 +102,7 @@
     <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:1.11.1" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
   </component>
 </module>

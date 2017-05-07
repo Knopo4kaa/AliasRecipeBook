@@ -6,30 +6,38 @@
     <script src="/resources/jquery-1.11.3.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/resources/style.css" >
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Alias</title>
 </head>
 <body>
 
-<script>
-    $(document).ready(function () {
-        $(".rules").click(function () {
-            window.location="/rools";
-        });
-    });
-</script>
 
-
+<%@include file="header.jsp"%>
 <div class="container">
-    <div class="rules"></div>
+    <div class="jumbotron col-md-12">
+        <c:forEach items="${recipes}" var="recipe">
 
-    <div class="col-md-12" style="margin-top: 10%">
-            <div class="play">
-                <a href="/teampage">
-                <div class="play_logo"></div>
-                </a>
-            </div>
+            <div class="recipeItem col-md-4">
+                    <c:forEach items="${recipe.images}" var="image" varStatus="loop">
+                        <c:choose>
+                            <c:when test="${loop.index==0}">
+                                <img src="${image.url}"/>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <h3 ><a href="/recipe/${recipe.id}">${recipe.title}</a></h3>
+                    <div style="display: flex; justify-content: space-around">
+                        <span>${recipe.time} minutes</span>
+                        <span>${recipe.count} servings</span>
+                    </div>
+                    <br>
+                    <span >Author:${recipe.author}</span>
+                </div>
+        </c:forEach>
     </div>
-    <%@include file="footer.jsp"%>
 </div>
 
 </body>

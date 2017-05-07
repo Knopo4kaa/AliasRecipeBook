@@ -7,10 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by drowerik on 27.05.16.
- */
-
 @ControllerAdvice
 public class ExceptionController {
 

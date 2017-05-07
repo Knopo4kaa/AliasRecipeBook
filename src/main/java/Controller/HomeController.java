@@ -1,17 +1,25 @@
 package Controller;
 
 import Model.*;
-import Repositories.EasyRepository;
-import Repositories.HardRepository;
-import Repositories.MiddleRepository;
-import Services.WordsService;
+import Repositories.IngridientRepository;
+import Services.CategoriesService;
+import Services.ImageService;
+import Services.IngredientService;
+import Services.RecipesService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,52 +30,128 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    private Integer gameLevel = null;
-    private List<Team> teams = new ArrayList<Team>();
-    private List<Team> playedTeams = new ArrayList<Team>();
-    private int time;
-
     @Inject
-    WordsService wordsService;
+    RecipesService recipesService;
+    @Inject
+    CategoriesService categoriesService;
+    @Inject
+    IngredientService ingredientService;
+    @Inject
+    ImageService imageService;
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String homepage(ModelMap mav){
-
-        mav.put("name", wordsService.getWordsForEasyGame().size());
+        mav.put("recipes", recipesService.getAllRecipes());
+        mav.put("categories", categoriesService.getAllCategories());
         return "homepage";
     }
 
-    @RequestMapping(value = "teampage", method = RequestMethod.GET)
-    public String teampage(ModelMap mav){
-        playedTeams.clear();
-        teams.clear();
-        gameLevel = null;
-        time = 0;
-        return "teampage";
+    @RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET)
+    public String categoryrecipes(ModelMap mav,
+                         @PathVariable int categoryId){
+        CategoryEntity categoryEntity = categoriesService.getCategory(categoryId);
+        mav.put("recipes", categoryEntity.getRecipes());
+        mav.put("categories", categoriesService.getAllCategories());
+        return "homepage";
     }
 
-    @RequestMapping(value = "options", method = RequestMethod.POST)
-    public String options(@RequestParam(value = "title[]", required = false)String [] titles){
 
-        if (playedTeams.size() != 0){
-            for (Team t: playedTeams) {
-                t.setGuessed(0);
-                t.setNotGuessed(0);
-                teams.add(t);
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchByIngr(ModelMap mav,
+                                  @RequestParam(value = "title")String title){
+        List<IngridientEntity> ingridientEntities = ingredientService.getIngredientsByTitle(title);
+        List<RecipeEntity> recipeEntities = new ArrayList<RecipeEntity>();
+
+        for (int i = 0; i < ingridientEntities.size(); i++){
+            RecipeEntity recipeEntity = ingridientEntities.get(i).getRecipe();
+            if (!recipeEntities.contains(recipeEntity)){
+                recipeEntities.add(recipeEntity);
             }
-            playedTeams.clear();
-        }else {
-            for (String title : titles) {
-            teams.add(new Team(title,teams.size()));
+        }
+        mav.put("recipes", recipeEntities);
+        mav.put("categories", categoriesService.getAllCategories());
+        return "homepage";
+    }
+
+    @RequestMapping(value = "/recipe/{recipeId}", method = RequestMethod.GET)
+    public String recipe(ModelMap mav,
+                             @PathVariable int recipeId){
+        RecipeEntity recipeEntity = recipesService.getRecipe(recipeId);
+        mav.put("recipe", recipesService.getRecipe(recipeId));
+        mav.put("categories", categoriesService.getAllCategories());
+        return "recipe";
+    }
+
+    @RequestMapping(value = "/newrecipe", method = RequestMethod.GET)
+    public String newrecipe(ModelMap mav){
+
+        mav.put("categories", categoriesService.getAllCategories());
+        return "newrecipe";
+    }
+
+    @RequestMapping(value = "/createrecipe", method = RequestMethod.POST)
+    public String createrecipe(ModelMap mav,
+                               @RequestParam(value = "author")String author,
+                               @RequestParam(value = "title")String title,
+                               @RequestParam(value = "description")String description,
+                               @RequestParam(value = "portCount")Integer count,
+                               @RequestParam(value = "time")Integer time,
+                               @RequestParam(value = "category")Integer category,
+                               @RequestParam(value = "ingname[]")List<String> ingnames,
+                               @RequestParam(value = "ingval[]")List<String> ingval,
+                               @RequestParam(value = "images") List<MultipartFile> images) throws IOException {
+        CategoryEntity categoryEntity = categoriesService.getCategory(category);
+
+        RecipeEntity recipeEntity = new RecipeEntity();
+        recipeEntity.setAuthor(author);
+        recipeEntity.setCount(count);
+        recipeEntity.setDescription(description);
+        recipeEntity.setTime(time);
+        recipeEntity.setTitle(title);
+        recipeEntity.setCategory(categoryEntity);
+
+        RecipeEntity savedRecipe = recipesService.saveRecipe(recipeEntity);
+
+        for(int i = 0; i < ingnames.size(); i++){
+            IngridientEntity ingridientEntity = new IngridientEntity();
+            ingridientEntity.setCount(ingval.get(i));
+            ingridientEntity.setTitle(ingnames.get(i));
+            ingridientEntity.setRecipe(savedRecipe);
+            ingredientService.saveIngredient(ingridientEntity);
+        }
+
+        String imagesFolder = "/home/drowerik3/JavaProjects/AliasGame/src/main/webapp/resources/images/";
+
+        for (int i = 0; i < images.size(); i++){
+            MultipartFile file = images.get(i);
+            File newFile = new File(imagesFolder + file.getOriginalFilename());
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+
+            inputStream = file.getInputStream();
+
+            if (!newFile.exists()) {
+                newFile.createNewFile();
             }
+            outputStream = new FileOutputStream(newFile);
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+
+            ImageEntity imageEntity = new ImageEntity();
+            imageEntity.setUrl("/resources/images/" + newFile.getName());
+            imageEntity.setRecipe(recipeEntity);
+            imageService.saveImage(imageEntity);
         }
 
 
-//        mav.put("name", wordsService.getWordsForEasyGame().size());
-        return "options";
+        mav.put("categories", categoriesService.getAllCategories());
+        return "redirect:/";
     }
-
 
     private  <E> List<E> permutation(List<E> list){
         List<E> output = new ArrayList<E>();
@@ -81,100 +165,5 @@ public class HomeController {
 
         }
         return output;
-    }
-
-    @RequestMapping(value = "game", method = RequestMethod.POST)
-    public String game(@RequestParam(value = "time" , required = false)Integer _time,
-                       @RequestParam(value = "level" , required = false)Integer level,
-                       @RequestParam(value = "score" , required = false)Integer score,
-                       @RequestParam(value = "id" , required = false)Integer id,
-                       @RequestParam(value = "guessed" , required = false)Integer guessed,
-                       @RequestParam(value = "notguessed" , required = false)Integer notGuessed,
-                       ModelMap mav){
-
-        int random;
-        if (level != null){
-            gameLevel = level;
-            time = _time;
-            random = (int )(Math. random() * teams.size());
-
-            mav.put("team", teams.get(random));
-
-        }else{
-            Team team = new Team();
-            for (Team t: teams) {
-                if (t.getId() == id){
-                    team = t;
-                    break;
-                }
-            }
-            team.setGuessed(guessed);
-            team.setNotGuessed(notGuessed);
-            team.setScore(score);
-            playedTeams.add(team);
-            teams.remove(team);
-            if (teams.size() == 0){
-                return "redirect:/results";
-            }
-            random = (int )(Math. random() * teams.size());
-            mav.put("team", teams.get(random));
-        }
-
-        if (gameLevel == 1){
-            List<EasyEntity> list = wordsService.getWordsForEasyGame();
-            mav.put("words", permutation(list));
-        } else if (gameLevel == 2){
-            List<MiddleEntity> list = wordsService.getWordsForMediumGame();
-            mav.put("words", permutation(list));
-        } else if (gameLevel == 3){
-            List<HardEntity> list = wordsService.getWordsForHardGame();
-            mav.put("words", permutation(list));
-        }
-
-
-        mav.put("time", time);
-
-
-
-
-        return "gamepage";
-    }
-
-    @RequestMapping(value = "rools", method = RequestMethod.GET)
-    public String rools(ModelMap mav){
-        return "rools";
-    }
-
-
-    @RequestMapping(value = "results", method = RequestMethod.GET)
-    public String results(ModelMap mav){
-        mav.put("team", playedTeams);
-        return "results";
-    }
-
-    public Team chooseWinner(){
-        int max = 0;
-        Team buff = new Team();
-        for (Team team: playedTeams) {
-            if (team.getScore() > max){
-                max = team.getScore();
-                buff = team;
-            }
-        }
-        return buff;
-    }
-
-
-    @RequestMapping(value = "winner", method = RequestMethod.GET)
-    public String winner(ModelMap mav){
-        mav.put("winner", chooseWinner());
-        return "winnerpage";
-    }
-
-
-    @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String addWord(@RequestParam("word")String wordName){
-        wordsService.addWord(wordName);
-        return "redirect:/homepage";
     }
 }

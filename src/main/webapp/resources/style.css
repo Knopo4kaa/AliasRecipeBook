@@ -1,325 +1,80 @@
+.recipeItem{
+    width: 30%;
+    height: 350px;
+    background-color: white;
+    /*border: 1px solid darkgray;*/
+    border-radius: 15px;
+    margin: 7px;
+    text-align: center;
+}
+
+.recipeItem:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+}
+
+
+.jumbotron{
+    background-color: white !important;
+}
+
+.recipeItem img{
+    width: 100%;
+    margin-top: 3px;
+    height: 200px;
+    border-radius: 15px;
+}
+
 body{
-    background-color: #ffed75;
-}
-
-div.logo{
-
-    background-image: url("images/logo.png");
-    /*background-size: 100%;*/
-    background-size: cover;
-    width: 400px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 153px;
-}
-
-button.next{
-    background-color: transparent;
-    border: none;
-    background-image: url("images/next.png");
-    /*background-size: 100%;*/
-    background-size: cover;
-    width: 480px;
-    position: absolute;
-    bottom: 0;
-    right: 3%;
-    outline: none;
-    height: 153px;
-}
-
-
-div.rules{
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    background-image: url("images/rules.png");
-    /*background-size: 100%;*/
-    background-size: cover;
-    width: 480px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 153px;
-}
-
-
-div.teamLogo{
-
-    background-image: url("images/teams.png");
-    /*background-size: 100%;*/
-    background-size: cover;
-    width: 480px;
-    position: absolute;
-    top:0;
-    left: 5%;
-    height: 153px;
-}
-
-div.options{
-
-    background-image: url("images/options.png");
-    /*background-size: 100%;*/
-    background-size: cover;
-    width: 480px;
-    position: absolute;
-    top:0;
-    left: 5%;
-    height: 153px;
-}
-
-div.play_logo{
-    background-image: url("images/play2.png");
-    margin-top: 15%;
-    margin-left: 7%;
-    background-size: cover;
-    width: 260px;
-    height: 120px;
-    /*display: table-cell;*/
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
+    background-color: #eaeaea;
 }
 
 
 
-div.col-md-3.menu{
-    height: 8%;
-    border-radius: 5px;
-    background-color: floralwhite;
-    border: 1px solid coral;
+
+[data-role="dynamic-fields"] > .form-inline + .form-inline {
+    margin-top: 0.5em;
 }
 
-
-
-div.col-md-3.remove{
-    background-image: url("images/remove1.png");
-    margin-left: 2%;
-    height:50px;
-    width: 50px;
-    background-size: cover;
-    cursor: pointer;
-}
-
-div.col-md-3.plus{
-    background-image: url("images/plus.png");
-    margin-left: 2%;
-    height:50px;
-    width: 50px;
-    background-size: cover;
-    cursor: pointer;
-}
-
-
-input.team{
-    border: none;
-    background-color: floralwhite;
-    width:80%;
-    height: 100%;
-    font-size: 17px;
-}
-
-div.buttons{
-    margin-right: -5%;
-    float: right;
-    height:40px;
-    width: 40px;
-    /*background-color: red;*/
-    background-image: url("images/refresh.png");
-    background-size: cover;
-    cursor: pointer;
-}
-
-
-div.play{
-
-    display: table;
-    width: 300px;height: 300px;margin: auto;
-    background-image: url("images/play1.png");
-}
-
-
-div.central{
-    display: table;
-    margin: auto;
-}
-
-div.timer{
-    margin-left: 17%;
-}
-
-div.card{
-    margin-left: 3%;
-    width: 250px;
-    height: 300px;
-    border: 2px solid black;
-}
-
-h3.word{
-    /*height: 350px;  !* не в % *!*/
-    text-align: center;
-    line-height: 280px;
-}
-
-h3.title{
-    /*height: 350px;  !* не в % *!*/
-    text-align: center;
-    line-height: 280px;
-}
-
-div.yes{
-    cursor: pointer;
-    margin-top: 35%;
-    background-image: url("images/gal.png");
-    background-size: cover;
-    width: 100px;
-    height: 100px;
-}
-
-#window{
-    border-radius: 7px;
-    border: 1px coral solid;
+[data-role="dynamic-fields"] > .form-inline [data-role="add"] {
     display: none;
-    width: 450px;
-    height: 400px;
-    margin: 50px auto;
-    margin-top: 10%;
-    background: #fff;
-    z-index: 200;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 16px;
 }
 
-#wrap{
-    display: none;
-    opacity: 0.8;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 16px;
-    background-color: rgba(1, 1, 1, 0.725);
-    z-index: 100;
-    overflow: auto;
-}
-
-
-div.no{
-    cursor: pointer;
-    margin-top: 39%;
-    margin-left: 55%;
-    background-image: url("images/kres.png");
-    background-size: cover;
-    width: 70px;
-    height: 70px;
-}
-
-
-#oops{
-    background-image: url("images/oops.png");
-    background-size: cover;
-    width: 300px;height: 300px;margin: auto;
-}
-
-
-div._score{
-    background-image: url("images/score_.png");
-    background-size: cover;
-    width: 120px;
-    height: 45px;
-}
-
-div.home{
-    cursor: pointer;
-    background-image: url("images/home.png");
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 140px;
-    height: 75px;
-}
-
-div.team{
-    background-image: url("images/team.png");
-    background-size: cover;
-    width: 120px;
-    height: 45px;
-}
-
-
-h3.team, h3.score{
-    font-family: Comic Sans, Comic Sans MS, cursive;
-}
-
-
-#results{
-    border-radius: 7px;
-    border: 1px coral solid;
-    width: 450px;
-    height: 400px;
-    margin: 50px auto;
-    margin-top: 5%;
-    background: #fff;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 16px;
-}
-
-#winners{
-    border-radius: 7px;
-    border: 1px coral solid;
-    width: 450px;
-    height: 380px;
-    margin: 50px auto;
-    margin-top: 5%;
-    background: #fff;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 16px;
-}
-
-
-hr.style-eight {
-    padding: 0;
-    border: none;
-    border-top: medium double #333;
-    color: #333;
-    text-align: center;
-}
-hr.style-eight:after {
-    content: "§";
+[data-role="dynamic-fields"] > .form-inline:last-child [data-role="add"] {
     display: inline-block;
-    position: relative;
-    top: -0.7em;
-    font-size: 1.5em;
-    padding: 0 0.25em;
-    background: white;
 }
 
-
-.true{
-    background-image: url("images/gal.png");
-    background-size: cover;
-    width: 30px;
-    height: 30px;
+[data-role="dynamic-fields"] > .form-inline:last-child [data-role="remove"] {
+    display: none;
 }
 
+.item{
+    width: 600px;
+    height: 500px;
+}
 
-.false{
-    background-image: url("images/kres.png");
-    background-size: cover;
-    width: 30px;
-    height: 30px;
+#myCarousel{
+    width: 600px;
+    height: 500px;
+}
+
+.line {
+    height: 1px;
+    flex: 1;
+    background: dimgrey;
+    margin: 0 10px;
+}
+
+.recipeItem h3 a:hover{
+    text-decoration: none;
+}
+
+.recipeItem h3 a{
+    color: black;
+    cursor: pointer;
+}
+
+.circle:before {
+    content: ' \25CF';
+    font-size: 18px;
+    color: crimson;
 }
