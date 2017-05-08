@@ -39,8 +39,9 @@
                 </div>
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
-            <%--<ul class="nav navbar-nav navbar-right">--%>
-                <%--<li><a href="#">Link</a></li>--%>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/myrecipes">My recipes</a></li>
+                <li><a href="/signout">Sign out</a></li>
                 <%--<li class="dropdown">--%>
                     <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--%>
                     <%--<ul class="dropdown-menu">--%>
@@ -51,7 +52,7 @@
                         <%--<li><a href="#">Separated link</a></li>--%>
                     <%--</ul>--%>
                 <%--</li>--%>
-            <%--</ul>--%>
+            </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

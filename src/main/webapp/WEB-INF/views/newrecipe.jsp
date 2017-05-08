@@ -40,7 +40,14 @@
 </script>
 
 <script>
-
+    $(document).ready(function() {
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
 </script>
 
 <%@include file="header.jsp"%>
@@ -97,10 +104,6 @@
                 <div class="form-group">
                     <label for="images">Select images</label>
                     <input style="margin-left: 20%" required type="file" class="btn btn-default btn-file" id="images" name="images" multiple />
-                </div>
-                <div class="form-group">
-                    <label for="author">Author:</label>
-                    <input type="text" class="form-control" required id="author" placeholder="Enter author's name and surname" name="author">
                 </div>
                 <button type="submit" class="btn btn-default" id="submit-btn">Submit</button>
             </form>

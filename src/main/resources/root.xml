@@ -81,6 +81,7 @@
                 <value>Model.ImageEntity</value>
                 <value>Model.IngridientEntity</value>
                 <value>Model.RecipeEntity</value>
+                <value>Model.UserEntity</value>
             </list>
         </property>
     </bean>

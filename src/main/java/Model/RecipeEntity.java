@@ -14,12 +14,11 @@ import java.util.Set;
 public class RecipeEntity {
     private int id;
     private String title;
-    private String url;
-    private String author;
     private Integer time;
     private String description;
     private Integer count;
     private CategoryEntity category;
+    private UserEntity user;
     private Set<IngridientEntity> ingredients = new HashSet<IngridientEntity>(0);
     private Set<ImageEntity> images = new HashSet<ImageEntity>(0);
 
@@ -35,6 +34,16 @@ public class RecipeEntity {
         this.id = id;
     }
 
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    public UserEntity getUser() {
+        return this.user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
@@ -54,27 +63,6 @@ public class RecipeEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Basic
-    @Column(name = "url")
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url= url;
-    }
-
-
-    @Basic
-    @Column(name = "author")
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     @Basic
@@ -116,8 +104,7 @@ public class RecipeEntity {
 
         if (id != that.id) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (url != null ? !url.equals(that.url) : that.url!= null) return false;
-        if (author != null ? !author.equals(that.author) : that.author != null) return false;
+
         if (time != null ? !time.equals(that.time) : that.time != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (count != null ? !count.equals(that.count) : that.count != null) return false;
@@ -129,8 +116,6 @@ public class RecipeEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (time != null ? time.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (count != null ? count.hashCode() : 0);

@@ -2,10 +2,7 @@ package Controller;
 
 import Model.*;
 import Repositories.IngridientRepository;
-import Services.CategoriesService;
-import Services.ImageService;
-import Services.IngredientService;
-import Services.RecipesService;
+import Services.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -19,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +37,98 @@ public class HomeController {
     IngredientService ingredientService;
     @Inject
     ImageService imageService;
-
+    @Inject
+    UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String homepage(ModelMap mav){
+    public String homepage(ModelMap mav, HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
         mav.put("recipes", recipesService.getAllRecipes());
         mav.put("categories", categoriesService.getAllCategories());
         return "homepage";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginGet(ModelMap mav){
+        return "login";
+    }
+
+    @RequestMapping(value = "/signout", method = RequestMethod.GET)
+    public String signOut(ModelMap mav, HttpSession httpSession){
+        httpSession.setAttribute("user", null);
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/myrecipes", method = RequestMethod.GET)
+    public String myRecipes(ModelMap mav, HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
+        UserEntity userEntity = (UserEntity) user;
+        mav.put("recipes", recipesService.getRecipesByUser(userEntity));
+        mav.put("categories", categoriesService.getAllCategories());
+        return "homepage";
+    }
+
+    @RequestMapping(value = "/recipes/{user_id}", method = RequestMethod.GET)
+    public String userRecipes(ModelMap mav,
+                            @PathVariable int user_id, HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
+        UserEntity userEntity = userService.getUser(user_id);
+        mav.put("recipes", recipesService.getRecipesByUser(userEntity));
+        mav.put("categories", categoriesService.getAllCategories());
+        return "homepage";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginPost(ModelMap mav, HttpSession httpSession,
+                            @RequestParam(value = "login")String login,
+                            @RequestParam(value = "password")String password){
+
+        UserEntity userEntity = userService.authenticate(login, password);
+        if (userEntity != null){
+            httpSession.setAttribute("user", userEntity);
+            return "redirect:/";
+        }
+        mav.put("errors", "Login or password is incorrect");
+        return "login";
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String signUp(ModelMap mav, HttpSession httpSession,
+                            @RequestParam(value = "login")String login,
+                            @RequestParam(value = "name")String name,
+                            @RequestParam(value = "surname")String surname,
+                            @RequestParam(value = "password")String password){
+
+        if (userService.getUserByUsername(login) != null){
+            mav.put("regErrors", "User with such username already exists");
+            return "login";
+        }
+        UserEntity newUser = new UserEntity();
+        newUser.setName(name);
+        newUser.setSurname(surname);
+        newUser.setPassword(password);
+        newUser.setUsername(login);
+        userService.saveUser(newUser);
+        httpSession.setAttribute("user", newUser);
+        return "redirect:/login";
+    }
+
     @RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET)
     public String categoryrecipes(ModelMap mav,
-                         @PathVariable int categoryId){
+                         @PathVariable int categoryId, HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
         CategoryEntity categoryEntity = categoriesService.getCategory(categoryId);
         mav.put("recipes", categoryEntity.getRecipes());
         mav.put("categories", categoriesService.getAllCategories());
@@ -59,7 +138,11 @@ public class HomeController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchByIngr(ModelMap mav,
-                                  @RequestParam(value = "title")String title){
+                                  @RequestParam(value = "title")String title, HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
         List<IngridientEntity> ingridientEntities = ingredientService.getIngredientsByTitle(title);
         List<RecipeEntity> recipeEntities = new ArrayList<RecipeEntity>();
 
@@ -76,7 +159,11 @@ public class HomeController {
 
     @RequestMapping(value = "/recipe/{recipeId}", method = RequestMethod.GET)
     public String recipe(ModelMap mav,
-                             @PathVariable int recipeId){
+                             @PathVariable int recipeId, HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
         RecipeEntity recipeEntity = recipesService.getRecipe(recipeId);
         mav.put("recipe", recipesService.getRecipe(recipeId));
         mav.put("categories", categoriesService.getAllCategories());
@@ -84,7 +171,11 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/newrecipe", method = RequestMethod.GET)
-    public String newrecipe(ModelMap mav){
+    public String newrecipe(ModelMap mav, HttpSession httpSession){
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
 
         mav.put("categories", categoriesService.getAllCategories());
         return "newrecipe";
@@ -92,7 +183,6 @@ public class HomeController {
 
     @RequestMapping(value = "/createrecipe", method = RequestMethod.POST)
     public String createrecipe(ModelMap mav,
-                               @RequestParam(value = "author")String author,
                                @RequestParam(value = "title")String title,
                                @RequestParam(value = "description")String description,
                                @RequestParam(value = "portCount")Integer count,
@@ -100,17 +190,23 @@ public class HomeController {
                                @RequestParam(value = "category")Integer category,
                                @RequestParam(value = "ingname[]")List<String> ingnames,
                                @RequestParam(value = "ingval[]")List<String> ingval,
-                               @RequestParam(value = "images") List<MultipartFile> images) throws IOException {
+                               @RequestParam(value = "images") List<MultipartFile> images,
+                               HttpSession httpSession) throws IOException {
+        Object user = httpSession.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
+        UserEntity userEntity = (UserEntity) user;
+
         CategoryEntity categoryEntity = categoriesService.getCategory(category);
 
         RecipeEntity recipeEntity = new RecipeEntity();
-        recipeEntity.setAuthor(author);
         recipeEntity.setCount(count);
         recipeEntity.setDescription(description);
         recipeEntity.setTime(time);
         recipeEntity.setTitle(title);
         recipeEntity.setCategory(categoryEntity);
-
+        recipeEntity.setUser(userEntity);
         RecipeEntity savedRecipe = recipesService.saveRecipe(recipeEntity);
 
         for(int i = 0; i < ingnames.size(); i++){

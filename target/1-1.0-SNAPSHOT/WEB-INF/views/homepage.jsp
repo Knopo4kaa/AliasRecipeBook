@@ -34,7 +34,7 @@
                         <span>${recipe.count} servings</span>
                     </div>
                     <br>
-                    <span >Author:${recipe.author}</span>
+                <span><b>Author:</b><a class="unlink" href="/recipes/${recipe.user.id}">${recipe.user.name} ${recipe.user.surname}</a> </span>
                 </div>
         </c:forEach>
     </div>

@@ -88,7 +88,7 @@
 
             <div style="text-align: center; word-wrap: break-word; width: 300px;margin-top: 20px;">
                 <h4 style="font-weight: bold">Author</h4>
-                <span style="font-size: 17px">${recipe.author}</span>
+                <span style="font-size: 17px"><a class="unlink" href="/recipes/${recipe.user.id}">${recipe.user.name} ${recipe.user.surname}</a></span>
             </div>
         </div>
     </div>
