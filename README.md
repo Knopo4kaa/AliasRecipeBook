@@ -7,4 +7,4 @@ This web service will be something like tiny recipe book, where you can add new 
 * [Bondar Liliya](https://github.com/Knopo4kaa)
 
 ## Class diagram
-![Class diagram](https://github.com/Knopo4kaa/AliasRecipeBook/blob/master/uml.png)
+![Class diagram](https://github.com/Knopo4kaa/AliasRecipeBook/blob/master/uml1.png)
