@@ -22,9 +22,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by drowerik on 22.05.16.
- */
 
 @Controller
 @RequestMapping("/")
@@ -44,7 +41,7 @@ public class HomeController {
     public String homepage(ModelMap mav, HttpSession httpSession){
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
         mav.put("recipes", recipesService.getAllRecipes());
         mav.put("categories", categoriesService.getAllCategories());
@@ -66,7 +63,7 @@ public class HomeController {
     public String myRecipes(ModelMap mav, HttpSession httpSession){
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
         UserEntity userEntity = (UserEntity) user;
         mav.put("recipes", recipesService.getRecipesByUser(userEntity));
@@ -79,7 +76,7 @@ public class HomeController {
                             @PathVariable int user_id, HttpSession httpSession){
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
         UserEntity userEntity = userService.getUser(user_id);
         mav.put("recipes", recipesService.getRecipesByUser(userEntity));
@@ -127,7 +124,7 @@ public class HomeController {
                          @PathVariable int categoryId, HttpSession httpSession){
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
         CategoryEntity categoryEntity = categoriesService.getCategory(categoryId);
         mav.put("recipes", categoryEntity.getRecipes());
@@ -141,7 +138,7 @@ public class HomeController {
                                   @RequestParam(value = "title")String title, HttpSession httpSession){
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
         List<IngridientEntity> ingridientEntities = ingredientService.getIngredientsByTitle(title);
         List<RecipeEntity> recipeEntities = new ArrayList<RecipeEntity>();
@@ -162,7 +159,7 @@ public class HomeController {
                              @PathVariable int recipeId, HttpSession httpSession){
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
         RecipeEntity recipeEntity = recipesService.getRecipe(recipeId);
         mav.put("recipe", recipesService.getRecipe(recipeId));
@@ -174,7 +171,7 @@ public class HomeController {
     public String newrecipe(ModelMap mav, HttpSession httpSession){
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
 
         mav.put("categories", categoriesService.getAllCategories());
@@ -194,7 +191,7 @@ public class HomeController {
                                HttpSession httpSession) throws IOException {
         Object user = httpSession.getAttribute("user");
         if (user == null){
-            return "redirect:/login";
+            throw new NullPointerException();
         }
         UserEntity userEntity = (UserEntity) user;
 
@@ -249,17 +246,5 @@ public class HomeController {
         return "redirect:/";
     }
 
-    private  <E> List<E> permutation(List<E> list){
-        List<E> output = new ArrayList<E>();
 
-
-        while(output.size() != list.size())
-        {
-            int r = (int)(Math.random()*(list.size()));
-            if(!output.contains( list.get( r   )))
-                output.add( list.get( r   ));
-
-        }
-        return output;
-    }
 }

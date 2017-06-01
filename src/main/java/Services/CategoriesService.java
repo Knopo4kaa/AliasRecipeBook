@@ -10,4 +10,5 @@ import java.util.List;
 public interface CategoriesService {
     List<CategoryEntity> getAllCategories();
     CategoryEntity getCategory(int id);
+    CategoryEntity saveCategory(CategoryEntity categoryEntity);
 }
